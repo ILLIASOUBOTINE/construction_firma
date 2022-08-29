@@ -10,16 +10,36 @@
 //     }
 // })
 
- 
-const elem = document.querySelector('#carusel');
+const arrImgTitle = ['imgs\\carusel\\car1.jpg', 'imgs\\carusel\\car2.jpg', 'imgs\\carusel\\car3.jpg', 'imgs\\carusel\\car4.jpg', 'imgs\\carusel\\car5.jpg'] 
+
+const caruselPromise = new Promise(function(resolve, reject){
+    const elem = document.querySelector('#carusel');
+    for(let el of arrImgTitle){
+        //console.log(el)
+        let elImg = document.createElement('img');
+        elImg.setAttribute('src', el);
+        elem.append(elImg);
+    }
+     if(elem.querySelectorAll('img').length === 0){
+        reject('imgs don\'t load');
+     }else{
+         resolve(elem);
+     }
+   
+});
+
+
+
+//const arrElem = elem.querySelectorAll('img');
 const arrowUp = document.querySelector('.arrow_up');
 const arrowDown = document.querySelector('.arrow_down');
 const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
-const arrElem = elem.querySelectorAll('img');
 
-function carusel(btn1, btn2, arrElem){
+
+function carusel(btn1, btn2, elem){
     let caunt = 0;
+    const arrElem = elem.querySelectorAll('img');
     btn1.addEventListener('click', function(){
         // elem.classList.remove('carusel_reverse')
         // elem.classList.add('carusel')
@@ -43,5 +63,9 @@ function carusel(btn1, btn2, arrElem){
     });
 }
 
-carusel(arrowUp, arrowDown, arrElem);
-carusel(arrowLeft,arrowRight,arrElem);
+caruselPromise.then(data=>{
+    carusel(arrowUp, arrowDown, data);
+    carusel(arrowLeft,arrowRight, data);
+}).catch(err => console.error(err));
+
+

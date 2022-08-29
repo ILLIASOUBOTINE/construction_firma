@@ -38,6 +38,7 @@
 
 .navAll{
     display: flex;
+    flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: center;
@@ -55,4 +56,23 @@
     align-items: center;
     text-align: center;
     color: #3D4083;
+}
+
+.btn_menu {
+    display: none;
+}
+
+
+@media all and (max-width: 700px)  {
+    .navAll {
+        display: none;
+    }
+
+    .btn_menu{
+        display: flex;
+      
+       
+        
+    }
+
 }
