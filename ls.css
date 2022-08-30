@@ -1,0 +1,14 @@
+.ul_service {
+   margin-bottom: 10px; 
+   font-size: 20px;
+   text-decoration: none;
+}
+
+.ul_service > a {
+    text-decoration: none;
+}
+
+.ul_service > a:hover {
+    font-size: 21px;
+    color: rgb(6, 85, 32);
+}

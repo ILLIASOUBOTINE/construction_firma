@@ -1,4 +1,8 @@
 .rs {
+    
+}
+
+.total_carusel{
     position: relative;
     height: 100vh;
     overflow: hidden;
@@ -52,6 +56,17 @@
     bottom: -10px;
 }
 
+.p_our_work {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: #160554;
+    text-align: center;
+  
+
+}
+
 
 
 @media all and (max-width: 1200px)  {
@@ -60,7 +75,7 @@
         display: none;
     }
 
-    .rs {
+    .total_carusel {
         height :max-content;
         width: 100vw;
         /* overflow: hidden; */

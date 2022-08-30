@@ -36,9 +36,9 @@ const arrowDown = document.querySelector('.arrow_down');
 const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
 
-
+let caunt = 0;
 function carusel(btn1, btn2, elem){
-    let caunt = 0;
+    
     const arrElem = elem.querySelectorAll('img');
     btn1.addEventListener('click', function(){
         // elem.classList.remove('carusel_reverse')
@@ -69,3 +69,22 @@ caruselPromise.then(data=>{
 }).catch(err => console.error(err));
 
 
+const elemBtn_menu = document.querySelector('#btn_menu');
+const elem_menu_700px = document.querySelector('.menu_700px');
+const elem_p_x = document.querySelector('.p_x');
+elemBtn_menu.addEventListener('click', function(){
+    elem_menu_700px.style.display = 'flex';
+    console.dir(elem_menu_700px)
+})
+
+elem_menu_700px.addEventListener('click', function(event){
+    const arrLista = elem_menu_700px.querySelectorAll('a');
+    for(let e of arrLista){
+        if( event.target === elem_p_x || event.target === e ){
+            elem_menu_700px.style.display = 'none';
+            return;
+        }
+    }
+  
+    console.dir(elem_menu_700px)
+})
