@@ -1,14 +1,54 @@
-.ul_service {
+.list_service {
+    display: flex;
+    flex-direction: column;
+}
+
+.service {
+    display: flex;
+    flex-direction: column;
+}
+
+/* .service > a {
    margin-bottom: 10px; 
    font-size: 20px;
    text-decoration: none;
+    color: #160554;
+    margin-left: 20px;
+} */
+
+.a_title_service {
+    margin-bottom: 10px; 
+   font-size: 20px;
+   text-decoration: none;
+    color: #160554;
+    margin-left: 20px;
 }
 
-.ul_service > a {
-    text-decoration: none;
-}
 
-.ul_service > a:hover {
+.service a:hover {
     font-size: 21px;
-    color: rgb(6, 85, 32);
+    color: rgb(21, 84, 42);
+}
+
+.div_for_a  a {
+    margin-bottom: 5px; 
+    font-size: 18px;
+    color: #78680c; 
+    margin-left: 40px;
+}
+
+
+.a_active {
+    font-size: 21px;
+    color: rgb(156, 99, 20);
+}
+
+.div_for_a {
+    display: none;
+    flex-direction: column;
+}
+
+.div_for_a_activ {
+    display: flex;
+    flex-direction: column;
 }
