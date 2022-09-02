@@ -1,3 +1,9 @@
+.ls:hover {
+    background-color: rgb(217, 220, 210, 0.8);
+    box-shadow: 1px 2px 10px;
+    border-radius: 5%;
+}
+
 .list_service {
     display: flex;
     flex-direction: column;
@@ -26,8 +32,9 @@
 
 
 .service a:hover {
-    font-size: 21px;
+    /* font-size: 20px; */
     color: rgb(21, 84, 42);
+    text-shadow: 1px 1px 2px;
 }
 
 .div_for_a  a {
@@ -39,8 +46,9 @@
 
 
 .a_active {
-    font-size: 21px;
+    font-size: 20px;
     color: rgb(156, 99, 20);
+    
 }
 
 .div_for_a {

@@ -21,7 +21,8 @@ html {
 .ls {
     grid-area: ls;
     
-    background-color: rgb(217, 220, 210);
+    background-color: rgb(217, 220, 210, 0.2);
+    
 }
 
 .mn {
@@ -33,7 +34,7 @@ html {
 .rs {
     grid-area: rs;
    
-    background-color: rgb(217, 220, 210);
+    background-color: rgb(217, 220, 210, 0.2);
     
 }
 

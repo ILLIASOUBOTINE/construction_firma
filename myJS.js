@@ -7,15 +7,24 @@ const caruselPromise = new Promise(function(resolve, reject){
     const elem = document.querySelector('#carusel');
     for(let el of arrImgTitle){
         //console.log(el)
+        let elDivImg = document.createElement('div');
+        elDivImg.classList.add('elDivImg');
+        let elBtnImg = document.createElement('button');
+        elBtnImg.classList.add('elBtnImg');
+        elBtnImg.innerText = 'View';
         let elImg = document.createElement('img');
         elImg.setAttribute('src', el);
-        elem.append(elImg);
+        elDivImg.append(elBtnImg);
+        elDivImg.append(elImg);
+        elem.append(elDivImg);
+        
     }
-     if(elem.querySelectorAll('img').length === 0){
+
+    if(elem.querySelectorAll('img').length === 0){
         reject('imgs don\'t load');
-     }else{
+    }else{
          resolve(elem);
-     }
+    } 
    
 });
 
@@ -30,7 +39,7 @@ const arrowRight = document.querySelector('.arrow_right');
 let caunt = 0;
 function carusel(btn1, btn2, elem){
     
-    const arrElem = elem.querySelectorAll('img');
+    const arrElem = elem.querySelectorAll('div');
     btn1.addEventListener('click', function(){
         // elem.classList.remove('carusel_reverse')
         // elem.classList.add('carusel')
@@ -60,12 +69,19 @@ caruselPromise.then(data=>{
 }).catch(err => console.error(err));
 
 ////// for hd - is little menue
+document.querySelector('body').addEventListener('mousemove', function(){
+    if(document.querySelector('body').clientWidth > 700){
+        elem_menu_700px.style.display = 'none'
+    }
+})
+
 const elemBtn_menu = document.querySelector('#btn_menu');
 const elem_menu_700px = document.querySelector('.menu_700px');
 const elem_p_x = document.querySelector('.p_x');
+
 elemBtn_menu.addEventListener('click', function(){
     elem_menu_700px.style.display = 'flex';
-    console.dir(elem_menu_700px)
+    console.dir(document.querySelector('body').clientWidth)
 })
 
 elem_menu_700px.addEventListener('click', function(event){
@@ -102,10 +118,7 @@ function f1(list_service) {
     let previousElem;
    // let togle = true;
     list_service.addEventListener('click',function(event){
-        
-        
-
-        
+      
         console.dir(event.target);
         console.log(arrA);
         for(let e of arrA){
@@ -129,7 +142,10 @@ function f1(list_service) {
                 //togle = !togle;
                 previousElem = event.target;
             }
-        }
+        }  
+        
+
+        
         
         
     })
@@ -157,47 +173,3 @@ function createDivService(elemDiv, arrWorks, e) {
          div_for_a.append(a1);
     }
 }
-
-
-
-
-
-// function createDivService(elemDiv, arrWorks) {
-//     let divSevice = document.createElement('div');
-//     divSevice.classList.add('service');
-//     elemDiv.append(divSevice);
-//     let div_for_a = document.createElement('div');
-//     div_for_a.classList.add('div_for_a');
-//     let a_title_service = document.createElement('a');
-//     divSevice.append(a_title_service);
-//     divSevice.append(div_for_a);
-//     let togle = true;
-//     a_title_service.addEventListener('click',function(){
-        
-//         if(div_for_a.querySelectorAll('a').length === 0){
-        
-//             for(let e of arrWorks){
-//                 let a1 = document.createElement('a');
-//                 a1.innerText = e; 
-//                 div_for_a.append(a1);
-//             }
-//         }
-
-//         if(togle){
-//             a_title_service.classList.add('a_active');
-//             div_for_a.style.display = 'flex';
-//         }else{
-//             div_for_a.style.display = 'none';
-//             a_title_service.classList.remove('a_active');
-//         }
-//         togle = !togle;
-        
-//     })
-// }
-
-
-
-
-
-
-
