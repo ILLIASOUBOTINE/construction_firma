@@ -96,6 +96,8 @@ elem_menu_700px.addEventListener('click', function(event){
     console.dir(elem_menu_700px)
 })
 
+
+
 ///// for ls 
 const promiseLs = new Promise(function(resolve,reject){
     const works = ['Redecorating', 'Overhaul', 'Renovation', 'Apartment renovation in new buildings', 'Bathroom renovation', 
@@ -168,6 +170,7 @@ function createDivService(elemDiv, arrWorks, e) {
    
     for(let e of arrWorks){
         let a1 = document.createElement('a');
+        a1.classList.add('nav1')
         a1.setAttribute('href', '#')
         a1.innerText = e; 
          div_for_a.append(a1);
