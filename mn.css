@@ -19,6 +19,31 @@
     font-weight: 400;
     font-size: 24px;
     color: #160554;
-    text-align: center;
-
+   
 }
+
+#mainConteiner {
+    
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.dt_conteiner {
+    margin-top: 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    color: #201a36;
+    
+} 
+
+.dd_conteiner {
+    margin-top: 10px;
+   
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: #201a36;
+    
+} 

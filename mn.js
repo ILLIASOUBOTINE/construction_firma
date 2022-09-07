@@ -47,68 +47,154 @@ const Redecorating = [
     'Four-room apartment - from 65 days.',
 ]
 
-const Overhaul = [
-    'Capital renovation of the apartment includes:',
-    'Alignment of walls and ceilings on a plane, or at 90 degrees;',
-    'Further preparation of walls and ceilings for wallpaper or painting;',
-    'Leveling the floor with a cement-sand screed or self-leveling mortar;',
-    'Laying laminate, parquet boards, massive boards;',
-    'When carrying out electrical work, all internal wiring is replaced;',
-    'When carrying out plumbing work, a major replacement of plumbing wiring is carried out;',
-    'If necessary, the batteries are replaced;',
-    'Replacement of entrance and interior doors.',
-    'Cost: from 4 200 r/m2.',
+// const Overhaul = [
 
-    'The cost of consumables: from 1,500 to 2,500 r/m2.',
+//     'Capital renovation of the apartment includes:',
+//     'Alignment of walls and ceilings on a plane, or at 90 degrees;',
+//     'Further preparation of walls and ceilings for wallpaper or painting;',
+//     'Leveling the floor with a cement-sand screed or self-leveling mortar;',
+//     'Laying laminate, parquet boards, massive boards;',
+//     'When carrying out electrical work, all internal wiring is replaced;',
+//     'When carrying out plumbing work, a major replacement of plumbing wiring is carried out;',
+//     'If necessary, the batteries are replaced;',
+//     'Replacement of entrance and interior doors.',
 
-    'Deadlines:',
+//     'Cost: from 4 200 r/m2.',
+//     'The cost of consumables: from 1,500 to 2,500 r/m2.',
 
-    'Turnkey room - from 7 to 18 days.',
-    'One-room apartment - from 25 days.',
-    'Two-room apartment - from 40 days.',
-    'Three-room apartment - from 50 days.',
-    'Four-room apartment - from 65 days.',
+//     'Deadlines:',
+//     'Turnkey room - from 7 to 18 days.',
+//     'One-room apartment - from 25 days.',
+//     'Two-room apartment - from 40 days.',
+//     'Three-room apartment - from 50 days.',
+//     'Four-room apartment - from 65 days.',
 
     
-]
+// ]
+
+// const Overhaul = {
+//     dt1: 'Capital renovation of the apartment includes:',
+//     dd1: [
+//         'Alignment of walls and ceilings on a plane, or at 90 degrees;',
+//         'Further preparation of walls and ceilings for wallpaper or painting;',
+//         'Leveling the floor with a cement-sand screed or self-leveling mortar;',
+//         'Laying laminate, parquet boards, massive boards;',
+//         'When carrying out electrical work, all internal wiring is replaced;',
+//         'When carrying out plumbing work, a major replacement of plumbing wiring is carried out;',
+//         'If necessary, the batteries are replaced;',
+//         'Replacement of entrance and interior doors.',
+//     ],
+//     dt2: 'Deadlines:', 
+//     dd2: [
+//         'Turnkey room - from 7 to 18 days.',
+//         'One-room apartment - from 25 days.',
+//         'Two-room apartment - from 40 days.',
+//         'Three-room apartment - from 50 days.',
+//         'Four-room apartment - from 65 days.',
+//     ],
+//     p:[
+//         'Cost: from 4 200 r/m2.',
+//         'The cost of consumables: from 1,500 to 2,500 r/m2.',
+//     ],
+// }
+
+class myBlock {
+    title = String;
+    dt1 = String;
+    dd1 = [];
+    dt2 = String;
+    dd2 = [];
+    p = [];
+}
+class myListServises {
+    title = String;
+    listServises = [];
+}
+
+// let Overhaul = {
+//     dt1: String,
+//     dd1: [],
+//     dt2: String,
+//     dd2: [],
+//     p:[],
+// }
+
+let list_servises = [];
+
+const url = 'http://localhost:8080/getAllServiseWorks';
+function sendRequest(method, url) {
+    return fetch(url).then(response=>response.json());
+}
+
+sendRequest('GET', url).then((data) => {
+    list_servises = data;
+    console.dir(data);
+    return new Promise(function(resolve, reject){
+        resolve(list_servises)
+    });
+    
+}).then(data=> {
+    fooo();
+    //console.log(data.map(e => e.subscribWorkDtoList));
+});
 
 
-
-
-
-
-const list_menu = [{nameService: 'About us', arr:aboutAs},{nameService: 'Home', arr:home},{nameService: 'Contact us', arr:contact},
-{nameService: 'Redecorating', arr:Redecorating},{nameService: 'Overhaul', arr:Overhaul},];
-
-const titleMainConteiner = document.querySelector('#titleMainConteiner');
-//const listMenu = document.querySelector('#listNav');
-const bodyElem = document.querySelector('body');
-const listMenu = document.querySelectorAll('.nav1');
-bodyElem.addEventListener('click', function(event){
-   
-    let activElem = event.target;
-    console.dir(listMenu);
-    console.dir(activElem);
-    for(let e of listMenu){
-        if(e === activElem){
-          
-          
-        
-         
-          for(let e of list_menu){
-            if(e.nameService === activElem.innerText){
-                if(document.querySelector('#mainConteiner').firstChild !== null){
-                     document.querySelector('#mainConteiner').firstChild.remove();
-                }
-                titleMainConteiner.innerText = activElem.innerText;
-                content(e.arr).then(data => console.log(data));
-              
-            }
-          }
+function fooo() {
+    // const list_menu = [{nameService: 'About us', arr:aboutAs},{nameService: 'Home', arr:home},{nameService: 'Contact us', arr:contact},
+    // {nameService: 'Redecorating', arr:Redecorating},{nameService: 'Overhaul', arr:Overhaul},];
+    const arrr = [];
+    
+    const list_subscribWorkDtoList = list_servises.map(e => e.subscribWorkDtoList);
+    for(let e of list_subscribWorkDtoList){
+        for(let e1 of e){
+            arrr.push(e1);
         }
     }
+    const list_menu = arrr;
+    const list_menu1 = list_servises_menu;
+    //console.dir(arrr);
+
+    const titleMainConteiner = document.querySelector('#titleMainConteiner');
+    //const listMenu = document.querySelector('#listNav');
+    const bodyElem = document.querySelector('body');
+    const listMenu = document.querySelectorAll('.nav1');
+    bodyElem.addEventListener('click', function(event){
+   
+        let activElem = event.target;
+        //console.dir(listMenu);
+        //console.dir(activElem);
+        for(let e of listMenu){
+            if(e === activElem){
+                for(let e1 of list_menu){
+                    if(e1.title === activElem.innerText){
+                        if(document.querySelector('#mainConteiner').firstChild !== null){
+                            document.querySelector('#mainConteiner').firstChild.remove();
+                        }
+                        titleMainConteiner.innerText = activElem.innerText;
+                        contentServices(e1).then();
+                        //content(e1.arr).then();
+                    } 
+                }
+                
+                for(let e1 of list_menu1){
+                    if(e1.title === activElem.innerText){
+                        if(document.querySelector('#mainConteiner').firstChild !== null){
+                            document.querySelector('#mainConteiner').firstChild.remove();
+                        }
+                        titleMainConteiner.innerText = activElem.innerText;
+                        content(e1.arr).then();
+                        
+                    } 
+                }
+            
+            
+           
+            }
+        }
     
-})
+    })
+}
+
 
 
 
@@ -138,3 +224,54 @@ function content(arr) {
 
 
 
+
+
+
+function contentServices(obj) {
+    return new Promise(function(resolve, reject){
+        const mainConteiner = document.querySelector('#mainConteiner');
+        //.dir(mainConteiner);
+        let div_conteiner = document.createElement('div');
+        
+        
+                let dl_conteiner = document.createElement('dl');
+                let dt1_conteiner = document.createElement('dt');
+                dt1_conteiner.classList.add('dt_conteiner')
+                dt1_conteiner.innerText = obj.dt1;
+                for(let e of obj.dd1){
+                    let dd1_conteiner = document.createElement('dd'); 
+                    dd1_conteiner.classList.add('dd_conteiner')
+                    dd1_conteiner.innerText = e;
+                    dt1_conteiner.append(dd1_conteiner);
+                }
+                let dt2_conteiner = document.createElement('dt');
+                dt2_conteiner.classList.add('dt_conteiner')
+                dt2_conteiner.innerText = obj.dt2;
+                for(let e of obj.dd2){
+                    let dd2_conteiner = document.createElement('dd'); 
+                    dd2_conteiner.classList.add('dd_conteiner')
+                    dd2_conteiner.innerText = e;
+                    dt2_conteiner.append(dd2_conteiner);
+                }
+                let div_p_conteiner = document.createElement('div');
+                for(let e of obj.p){
+                    let p_conteiner = document.createElement('p'); 
+                    p_conteiner.classList.add('p_conteiner')
+                    p_conteiner.innerText = e;
+                    div_p_conteiner.append(p_conteiner);
+                }
+
+                dl_conteiner.append(dt1_conteiner);
+                dl_conteiner.append(dt2_conteiner);    
+
+        div_conteiner.append(dl_conteiner);
+        div_conteiner.append(div_p_conteiner);    
+        mainConteiner.append(div_conteiner);
+        if(obj === undefined){
+            reject('text didn\'t load');
+        }else{
+            resolve(mainConteiner);
+        } 
+   
+    });
+}

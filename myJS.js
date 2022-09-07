@@ -99,20 +99,29 @@ elem_menu_700px.addEventListener('click', function(event){
 
 
 ///// for ls 
-const promiseLs = new Promise(function(resolve,reject){
-    const works = ['Redecorating', 'Overhaul', 'Renovation', 'Apartment renovation in new buildings', 'Bathroom renovation', 
-    'Floor coverings', 'Water supply', 'Laying tiles', 'Wallpaper pasting', 'Electrical work', 'Decorative plaster', 'Door installation']
-    const listService = ['Repair work', 'Construction works', 'Design design', 'Complete set of objects', 'Equipment rent', 'Additional services']
-
+let listServises =[];
+const url = 'http://localhost:8080/getAllServiseWorks';
+function sendRequest(method, url) {
+    return fetch(url).then(response=>response.json());
+}
+sendRequest('GET', url).then((data) => {
+    listServises = data;
     const list_service = document.querySelector('.list_service');
-
-    for(let e of listService){
-        createDivService(list_service, works, e)
+    
+    for(let e of listServises){
+        createDivService(list_service, e.subscribWorkDtoList.map(e=>e.title), e.nameServiceWorks);
     }
-    resolve(list_service);
-})
+    console.dir(listServises);
+    return new Promise(function(resolve, reject){
+        resolve(list_service)
+    });
+    
+}).then(e =>{
+    f1(e);
+    fooo();
+});
 
-promiseLs.then(e =>f1(e));
+
 
 function f1(list_service) {
     const arrA = list_service.querySelectorAll('.a_title_service');
@@ -121,8 +130,8 @@ function f1(list_service) {
    // let togle = true;
     list_service.addEventListener('click',function(event){
       
-        console.dir(event.target);
-        console.log(arrA);
+        //console.dir(event.target);
+        //console.log(arrA);
         for(let e of arrA){
             //console.log(e);
             if(event.target === e){
@@ -145,13 +154,7 @@ function f1(list_service) {
                 previousElem = event.target;
             }
         }  
-        
-
-        
-        
-        
     })
-
 }
 
 
@@ -173,6 +176,170 @@ function createDivService(elemDiv, arrWorks, e) {
         a1.classList.add('nav1')
         a1.setAttribute('href', '#')
         a1.innerText = e; 
-         div_for_a.append(a1);
+        div_for_a.append(a1);
     }
 }
+
+
+// mn
+
+
+
+
+function fooo() {
+   
+    const arrr = [];
+    
+    const list_subscribWorkDtoList = listServises.map(e => e.subscribWorkDtoList);
+    //console.dir(list_subscribWorkDtoList);
+    for(let e of list_subscribWorkDtoList){
+        for(let e1 of e){
+            arrr.push(e1);
+        }
+    }
+    const list_menu = arrr;
+    const list_menu1 = list_servises_menu;
+    console.dir(arrr);
+
+    const titleMainConteiner = document.querySelector('#titleMainConteiner');
+    //const listMenu = document.querySelector('#listNav');
+    const bodyElem = document.querySelector('body');
+    const listMenu = document.querySelectorAll('.nav1');
+    bodyElem.addEventListener('click', function(event){
+   
+        let activElem = event.target;
+        //console.dir(listMenu);
+        //console.dir(activElem);
+        for(let e of listMenu){
+            if(e === activElem){
+                for(let e1 of list_menu){
+                    if(e1.title === activElem.innerText){
+                        if(document.querySelector('#mainConteiner').firstChild !== null){
+                            document.querySelector('#mainConteiner').firstChild.remove();
+                        }
+                        titleMainConteiner.innerText = activElem.innerText;
+                        contentServices(e1).then();
+                        //content(e1.arr).then();
+                    } 
+                }
+                
+                for(let e1 of list_menu1){
+                    if(e1.title === activElem.innerText){
+                        if(document.querySelector('#mainConteiner').firstChild !== null){
+                            document.querySelector('#mainConteiner').firstChild.remove();
+                        }
+                        titleMainConteiner.innerText = activElem.innerText;
+                        content(e1.arr).then();
+                        
+                    } 
+                }
+            
+            
+           
+            }
+        }
+    
+    })
+}
+
+
+
+
+function content(arr) {
+    return new Promise(function(resolve, reject){
+        const mainConteiner = document.querySelector('#mainConteiner');
+        console.dir(mainConteiner);
+        let div_conteiner = document.createElement('div');
+        for(let el of arr){
+            //console.log(el)
+            let p_conteiner = document.createElement('p');
+            p_conteiner.classList.add('p_conteiner');
+            p_conteiner.innerText = el;
+            div_conteiner.append(p_conteiner);
+            
+        }
+        mainConteiner.append(div_conteiner);
+        if(mainConteiner.querySelectorAll('p').length === 0){
+            reject('text didn\'t load');
+        }else{
+            resolve(mainConteiner);
+        } 
+   
+    });
+}
+
+
+
+
+
+
+
+function contentServices(obj) {
+    return new Promise(function(resolve, reject){
+        const mainConteiner = document.querySelector('#mainConteiner');
+        //.dir(mainConteiner);
+        let div_conteiner = document.createElement('div');
+        
+        
+        let dl_conteiner = document.createElement('dl');
+        let dt1_conteiner = document.createElement('dt');
+        dt1_conteiner.classList.add('dt_conteiner')
+        dt1_conteiner.innerText = obj.dt1;
+        for(let e of obj.dd1){
+            let dd1_conteiner = document.createElement('dd'); 
+            dd1_conteiner.classList.add('dd_conteiner')
+            dd1_conteiner.innerText = e;
+            dt1_conteiner.append(dd1_conteiner);
+        }
+        let dt2_conteiner = document.createElement('dt');
+        dt2_conteiner.classList.add('dt_conteiner')
+        dt2_conteiner.innerText = obj.dt2;
+        for(let e of obj.dd2){
+            let dd2_conteiner = document.createElement('dd'); 
+            dd2_conteiner.classList.add('dd_conteiner')
+            dd2_conteiner.innerText = e;
+            dt2_conteiner.append(dd2_conteiner);
+        }
+        let div_p_conteiner = document.createElement('div');
+        for(let e of obj.p){
+            let p_conteiner = document.createElement('p'); 
+            p_conteiner.classList.add('p_conteiner')
+            p_conteiner.innerText = e;
+            div_p_conteiner.append(p_conteiner);
+        }
+
+        dl_conteiner.append(dt1_conteiner);
+        dl_conteiner.append(dt2_conteiner);    
+
+        div_conteiner.append(dl_conteiner);
+        div_conteiner.append(div_p_conteiner);    
+        mainConteiner.append(div_conteiner);
+        if(obj === undefined){
+            reject('text didn\'t load');
+        }else{
+            resolve(mainConteiner);
+        } 
+   
+    });
+}
+
+
+const  aboutAs = [
+    'We are not beginners in the field of services in the construction industry. Our company has been working in this direction for a long time. And we have much to be proud of. We are a dynamically developing company that sets itself the highest goals and objectives - constant professional growth, improving the quality of services provided, expanding the range of construction and repair services, expanding its activities and creating the most comfortable conditions for our customers.',
+    'Of course, you might think that these are just high words, but behind these words there are real deeds. During its existence, our company has implemented a huge number of projects of varying complexity. And our customers were able to appreciate our professional level. Our company has managed to prove itself from the best side, to earn a reputation as a reliable partner. And, naturally, we do not want to spoil this reputation, we do not want to lower the professional requirements for ourselves. If we take on something, we do it qualitatively, at the highest level.',
+    'Each of our employees is a true professional, for whom there are no blind spots in their work. It is difficult to find fault with the state of our material and technical base. At the same time, we attach great importance to the introduction of the most advanced technologies. After all, this is the only way to move forward, the only way to improve.',
+    'As for the services provided, their range is quite wide. We try to protect our clients from additional troubles as much as possible. Capital construction, connection of electrical equipment, rental of construction equipment, equipment of objects, design design - this is just a part of our professional interests. At the same time, each client is important to us, in relation to each client we use only an individual approach.',
+    'And further! We are always ready to meet the needs of our clients. We are well aware that in the construction industry there is an unimaginable number of nuances and additional issues. Everything is solved. You just need to contact us, our specialists will be able to dot all the “i”, find the best solution that will completely suit the client.',
+] 
+
+const  home = [
+    'We are not beginners in the field of services in the construction industry. Our company has been working in this direction for a long time. And we have much to be proud of. We are a dynamically developing company that sets itself the highest goals and objectives - constant professional growth, improving the quality of services provided, expanding the range of construction and repair services, expanding its activities and creating the most comfortable conditions for our customers.',
+    'Of course, you might think that these are just high words, but behind these words there are real deeds. During its existence, our company has implemented a huge number of projects of varying complexity. And our customers were able to appreciate our professional level. Our company has managed to prove itself from the best side, to earn a reputation as a reliable partner. And, naturally, we do not want to spoil this reputation, we do not want to lower the professional requirements for ourselves. If we take on something, we do it qualitatively, at the highest level.',
+    'Each of our employees is a true professional, for whom there are no blind spots in their work. It is difficult to find fault with the state of our material and technical base. At the same time, we attach great importance to the introduction of the most advanced technologies. After all, this is the only way to move forward, the only way to improve.',
+]
+
+const contact = [
+    'Contact Information:','Phone: (+33) 689-71-65-45', 'Email mail: info@re-construction_firma.fr', 'Address: 42 Rte de Baillargues, 34130 Mauguio'
+]
+
+const list_servises_menu = [{title: 'Home', arr: home},{title: 'About us', arr: aboutAs},{title: 'Contact us', arr: contact}]
