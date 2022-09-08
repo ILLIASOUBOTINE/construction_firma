@@ -1,7 +1,9 @@
 
  //// for rs - carusel
 
-const arrImgTitle = ['imgs\\carusel\\car1.jpg', 'imgs\\carusel\\car2.jpg', 'imgs\\carusel\\car3.jpg', 'imgs\\carusel\\car4.jpg', 'imgs\\carusel\\car5.jpg'] 
+
+//const arrImgTitle = ['imgs\\carusel\\car1.jpg', 'imgs\\carusel\\car2.jpg', 'imgs\\carusel\\car3.jpg', 'imgs\\carusel\\car4.jpg', 'imgs\\carusel\\car5.jpg'] 
+const arrImgTitle = [{title:'p1', img:'imgs\\carusel\\car1.jpg'},{title:'p2', img:'imgs\\carusel\\car2.jpg'},{title:'p3', img:'imgs\\carusel\\car3.jpg'},{title:'p4', img:'imgs\\carusel\\car4.jpg'},{title:'p5', img:'imgs\\carusel\\car5.jpg'}, ]
 
 const caruselPromise = new Promise(function(resolve, reject){
     const elem = document.querySelector('#carusel');
@@ -9,11 +11,15 @@ const caruselPromise = new Promise(function(resolve, reject){
         //console.log(el)
         let elDivImg = document.createElement('div');
         elDivImg.classList.add('elDivImg');
+        let elTitleImg = document.createElement('p');
+        elTitleImg.classList.add('elTitleImg');
+        elTitleImg.innerText = el.title;
         let elBtnImg = document.createElement('button');
         elBtnImg.classList.add('elBtnImg');
         elBtnImg.innerText = 'View';
         let elImg = document.createElement('img');
-        elImg.setAttribute('src', el);
+        elImg.setAttribute('src', el.img);
+        elDivImg.append(elTitleImg);
         elDivImg.append(elBtnImg);
         elDivImg.append(elImg);
         elem.append(elDivImg);
@@ -28,7 +34,32 @@ const caruselPromise = new Promise(function(resolve, reject){
    
 });
 
+function getOurWork() {
+    const elem = document.querySelector('#carusel');  
+    const arrelBtnImg = elem.querySelectorAll('.elBtnImg')
+    const url1 = 'http://localhost:8080/getOurWorkByTitle/p2'
+    elem.addEventListener('click',function(event){
+        let parent;
+        arrelBtnImg.forEach(function(e){if(e === event.target){return parent = e.parentElement}});
+        if(parent !== undefined){
+            let url1 = `http://localhost:8080/getOurWorkByTitle/${parent.firstChild.innerText}`;
+            sendRequest('GET', url1).then((data) => {
+                
+                if(document.querySelector('#mainConteiner').firstChild !== null){
+                    document.querySelector('#mainConteiner').firstChild.remove();
+                }
+                titleMainConteiner.innerText = data.title;
+                 
+                contentOurWork(data.description).then();
+            
+                
+            })
+        }
+        console.dir(parent.firstChild.innerText);
+    })
+}
 
+getOurWork();
 
 //const arrElem = elem.querySelectorAll('img');
 const arrowUp = document.querySelector('.arrow_up');
@@ -62,6 +93,8 @@ function carusel(btn1, btn2, elem){
         console.log(caunt);
     });
 }
+
+
 
 caruselPromise.then(data=>{
     carusel(arrowUp, arrowDown, data);
@@ -119,6 +152,7 @@ sendRequest('GET', url).then((data) => {
 }).then(e =>{
     f1(e);
     fooo();
+   
 });
 
 
@@ -248,7 +282,7 @@ function fooo() {
 function content(arr) {
     return new Promise(function(resolve, reject){
         const mainConteiner = document.querySelector('#mainConteiner');
-        console.dir(mainConteiner);
+        //console.dir(mainConteiner);
         let div_conteiner = document.createElement('div');
         for(let el of arr){
             //console.log(el)
@@ -268,6 +302,28 @@ function content(arr) {
     });
 }
 
+function contentOurWork(text) {
+    return new Promise(function(resolve, reject){
+        const mainConteiner = document.querySelector('#mainConteiner');
+        //console.dir(mainConteiner);
+        let div_conteiner = document.createElement('div');
+        
+            //console.log(el)
+            let p_conteiner = document.createElement('p');
+            p_conteiner.classList.add('p_conteiner');
+            p_conteiner.innerText = text;
+            div_conteiner.append(p_conteiner);
+            
+        
+        mainConteiner.append(div_conteiner);
+        if(mainConteiner.querySelectorAll('p').length === 0){
+            reject('text didn\'t load');
+        }else{
+            resolve(mainConteiner);
+        } 
+   
+    });
+}
 
 
 

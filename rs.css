@@ -94,6 +94,13 @@
     border: rgb(244, 239, 239);
 }
 
+.elTitleImg {
+    position: absolute;
+    left: 110px;
+    bottom: 50px;
+    font-size: 16px;
+}
+
 
 @media all and (max-width: 1200px)  {
     
